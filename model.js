@@ -41,7 +41,7 @@ class fixation {
             //  对子节点进行递归处理
             for (let i = 0; i < cnodes.length; i++) {
                 if (this.resultisbot(cnodes[i])) {
-                    this.Suspiciousnode.push(this.resultisbot(cnodes[i]));
+                    this.resultisbot(cnodes[i])
                 }
                 this.reviewnode(cnodes[i])
             }
@@ -52,7 +52,7 @@ class fixation {
         try {
             if (cnodes) {
                 if (cnodes.attributes) {
-                    return cnodes;
+                    this.Suspiciousnode.push(cnodes);
                 }
             }
         }
@@ -99,6 +99,9 @@ class elm_basics_class extends fixation {
     }];
     constructor() {
         super();
+        loadStyle('./style/default.css');//异步加载css
+        loadStyle('./style/livingexample.css');
+        loadStyle('./style/strange.css');
     }
     getclass(classname) {
         let setclass = '';
@@ -116,9 +119,6 @@ class elm extends elm_basics_class {
         super();
         this.searchNode();
         // console.log(this.Suspiciousnode,'检测的页面所有节点')
-        loadStyle('./style/default.css');//异步加载css
-        loadStyle('./style/livingexample.css');
-        loadStyle('./style/strange.css');
     }
     Drawer({ placement = 'bottom', slot = false, succeed = function () { }, message, type = 'default', height = 'auto', width = 'auto', html = '' }) {
         let than = this;
@@ -196,26 +196,55 @@ class elm extends elm_basics_class {
             }, tiem)
         }, 0)
     }
+}
+
+class simply extends elm_basics_class {
+    constructor() {
+        super();
+        this.searchNode();
+        this.mousesize();
+    }
+    broadcast = true;
+    mouse = false;
+    mousesize() {
+        let mouse = document.querySelector('#mouse');
+        if (this.mouse) {
+            window.addEventListener('mousemove', function (event) {
+
+                mouse.style.left = event.clientX - mouse.offsetWidth / 2 + 'px';
+                mouse.style.top = event.clientY - mouse.offsetHeight / 2 + 'px';
+
+            })
+        }
+    }
     //无障碍
     accessible() {
         let accessibledata = this.searchassignattr('accessible');
         accessibledata.map(item => {
-            let synth = window.speechSynthesis; //创建语音
-            let msg = new SpeechSynthesisUtterance(); //语音合成使用
+            let synth = window.speechSynthesis;
+            let msg = new SpeechSynthesisUtterance();
+            let than = this;
             item.addEventListener('mouseover', function () {
                 msg.text = item.getAttribute('accessible');
                 msg.lang = 'zh-CN'
-                synth.speak(msg);
-                item.style.border = '2px solid red';
-                item.style.cursor = 'pointer';
+                if (than.broadcast) {
+                    synth.speak(msg);
+                }
+                // item.style.border = '2px solid red';
+                // item.style.cursor = 'pointer';
             })
             item.addEventListener('mouseleave', function () {
                 synth.cancel(msg)
                 item.style.border = '';
             })
+
         })
-
-        // console.log(this.searchassignattr('accessible'), '无障碍')
-
     }
-} 
+    customplay(text) {
+        let synth = window.speechSynthesis;
+        let msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        msg.lang = 'zh-CN';
+        synth.speak(msg);
+    }
+}

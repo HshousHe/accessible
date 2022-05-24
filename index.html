@@ -7,54 +7,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="./model.js"></script>
-  <script src="./whiteblock.js"></script>
+  <!-- <script src="./whiteblock.js"></script> -->
 </head>
 <!-- animation-play-state:paused || running; 暂停动画 -->
 <style>
-  #whiteblock {
-    width: 250px;
-    height: 400px;
-    position: relative;
-    margin: 0px auto;
-    border: 1px solid slategray;
-    box-sizing: border-box;
+  * {
+    margin: 0px;
+    padding: 0px;
+    /* cursor: none !important;  */
   }
+  
 
-  .samallcontainer {
+  .toolbar {
     width: 100%;
-    /* position: absolute; */
-    display: flex;
-  }
-
-  .small_bg {
-    background: black;
-  }
-
-  .smallblock {
-    width: 25%;
-    height: 50px;
-    border: 1px solid black;
-    box-sizing: border-box;
-  }
-
-  #Godingtext {
-    /* 粘性布局 */
+    border: 1px solid silver;
     position: sticky;
     top: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
   }
 
-  body {
-    zoom: 1
+  #mouse {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    left: -200px;
+    z-index: 1000;
+    pointer-events: none;
   }
 </style>
 
 <body>
-  <div>
-
+  <img id="mouse" src="img/su.webp" alt="">
+  <div id="zoom_container">
+    <div class="toolbar">
+      <div class="elmbutton" accessible="是否静音" onclick="sound()">
+        <span>是否静音</span>
+      </div>
+      <div class="elmbutton" accessible="设置鼠标为大鼠标">
+        <span>大鼠标</span>
+      </div>
+      <div class="elmbutton" accessible="屏幕放大" onclick="zoomin()">
+        <span>+</span>
+        <span>屏幕放大</span>
+      </div>
+      <div class="elmbutton" accessible="屏幕放小" onclick="zoomde()"> <span>+</span>
+        <span>屏幕放小</span>
+      </div>
+    </div>
   </div>
   <script>
-    const Elm = new elm({ use: [] });
-    Elm.accessible();
+    const simplyAll = new simply();
+    function sound() {
+      simplyAll.broadcast = simplyAll.broadcast || false;
+      simplyAll.customplay(simplyAll.broadcast ? '已开启声音' : '已静音')
+    }
+    simplyAll.accessible();//开启语言播放
+    let zoomsize = 1.0;
+    function zoomin() {
+      zoomsize = zoomsize + 0.1;
+      set();
+    }
+    function zoomde() {
+      zoomsize = zoomsize - 0.1;
+      set();
+    }
+    function set() {
+      document.getElementById('zoom_container').style = `transform:scale(${zoomsize})`;
+      document.getElementById('zoom_container').cssText += `-moz-transform: scale(${zoomsize});transform-origin:0 0;`
+    }
+
   </script>
 </body>
 
