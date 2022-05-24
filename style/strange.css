@@ -1,0 +1,45 @@
+h1 {
+    position: relative;
+    color: #333;
+    font-family: Helvetica;
+    font-size: 8rem;
+    letter-spacing: -0.3rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1::after {
+    /* 这里content两种写法都行*/
+    /*content: 'CodingStartUp';*/
+    content: attr(data-spotlight);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    /* 下面这句代码 生成一个直径100px正圆 位置在水平最左 垂直的中间 */
+    clip-path: ellipse(100px 100px at 0% 50%);
+    -webkit-clip-path: ellipse (100px 100px at 0% 50%);
+    animation: spotlight 5s infinite;
+    background-image: url('https://dogefs.s3.ladydaily.com/~/source/unsplash/photo-1562008928-b918308728ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1290&q=80');
+    background-size: 150%;
+    background-position: center center;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+  }
+  @keyframes spotlight {
+    0% {
+      clip-path: ellipse(100px 100px at 0% 50%);
+      -webkit-clip-path: ellipse (100px 100px at 0% 50%);
+    }
+
+    50% {
+      clip-path: ellipse(100px 100px at 100% 50%);
+      -webkit-clip-path: ellipse (100px 100px at 0% 50%);
+    }
+
+    100% {
+      clip-path: ellipse(100px 100px at 0% 50%);
+      -webkit-clip-path: ellipse (100px 100px at 0% 50%);
+    }
+  }

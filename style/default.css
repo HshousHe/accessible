@@ -1,0 +1,77 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.message {
+  width: 300px;
+  min-height: 25px;
+  background: #909399;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  flex-wrap: wrap;
+  left: calc(50% - 120px);
+  transition: all .5s;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.default {
+  background-color: rgb(244, 244, 245);
+  color: rgb(144, 147, 153);
+}
+
+.success {
+  background-color: rgb(240, 249, 235);
+  color: rgb(103, 194, 58);
+}
+
+.warning {
+  background-color: rgb(253, 246, 236);
+  color: rgb(230, 162, 60);
+}
+
+.error {
+  background-color: rgb(254, 240, 240);
+  color: rgb(245, 108, 108);
+}
+
+.Drawer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0px;
+  top: 0px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .5);
+}
+
+.Drawer_container {
+  background: white;
+  transition: all .3s;
+  position: absolute;
+}
+
+.Drawer_container_bottom {
+  width: 100%;
+  /* min-height: 100px; */
+  bottom: 0px;
+}
+
+.Drawer_container_right {
+  height: 100%;
+  /* min-width: 400px; */
+  right: 0px;
+}
+.Drawer_container_left {
+  height: 100%;
+  /* min-width: 400px; */
+  left: 0px;
+}
+.Drawer_container_top {
+  width:100%;
+  /* min-height: 100px; */
+  top: 0px;
+}

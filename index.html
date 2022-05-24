@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./model.js"></script>
+  <script src="./whiteblock.js"></script>
+</head>
+<!-- animation-play-state:paused || running; 暂停动画 -->
+<style>
+  #whiteblock {
+    width: 250px;
+    height: 400px;
+    position: relative;
+    margin: 0px auto;
+    border: 1px solid slategray;
+    box-sizing: border-box;
+  }
+
+  .samallcontainer {
+    width: 100%;
+    /* position: absolute; */
+    display: flex;
+  }
+
+  .small_bg {
+    background: black;
+  }
+
+  .smallblock {
+    width: 25%;
+    height: 50px;
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
+
+  #Godingtext {
+    /* 粘性布局 */
+    position: sticky;
+    top: 0px;
+  }
+
+  /* #Oddcolor li:odd {
+    background: wheat;
+  }
+
+  #Oddcolor li:even {
+    background: salmon;
+  } */
+  body {
+    zoom: 1
+  }
+</style>
+
+<body>
+  <h4>css</h4>
+  <ul id="Oddcolor" accessible=" zoom：变焦；
+  -webkit-transform:scale()：放缩；
+  -webkit-text-size-adjust:none：根据设备(浏览器)来自动调整显示大小。" >
+    zoom：变焦；
+    -webkit-transform:scale()：放缩；
+    -webkit-text-size-adjust:none：根据设备(浏览器)来自动调整显示大小。
+  </ul>
+  <h4 accessible="CSS文字聚光灯效果">CSS文字聚光灯效果</h4>
+  <h1 id="Godingtext" data-spotlight="CodingStartUp">CodingStartUp</h1>
+  <h4 accessible="别踩白块" >别踩白块<span id="grade"></span></h4>
+  <div id="whiteblock">
+
+  </div>
+  <h4>message</h4>
+  <div class="elmbutton" onclick="message('success')">成功</div>
+  <div class="elmbutton" onclick="message('warning')">警告</div>
+  <div class="elmbutton" onclick="message('default')">消息</div>
+  <div class="elmbutton" onclick="message('error')">错误</div>
+  <div class="elmbutton" onclick="message('success','<div class=' +  'elmbutton' +' >  html套娃 </div>')">HTML</div>
+  <h4>Drawer</h4>
+  <div class="elmbutton" onclick="Drawer('top')">上</div>
+  <div class="elmbutton" onclick="Drawer('bottom')">下</div>
+  <div class="elmbutton" onclick="Drawer('left')">左</div>
+  <div class="elmbutton" onclick="Drawer('right')">右</div>
+  <h4 accessible="局部Drawer" >局部Drawer</h4>
+  <div class="elmbutton" onclick="localDrawer('top','local')">上</div>
+  <div class="elmbutton" onclick="localDrawer('bottom','local')">下</div>
+  <div class="elmbutton" onclick="localDrawer('left','local')">左</div>
+  <div class="elmbutton" onclick="localDrawer('right','local')">右</div>
+  <div class="Drawercontent" Drawer="local">
+    显示区域
+  </div>
+  <script>
+    const Elm = new elm({ use: [] });
+    Elm.accessible();
+    function localDrawer(placement, slot) {
+      Elm.Drawer({
+        height: '100px', placement, slot, width: '100px', html: "你好世界!"
+      })
+    }
+    function Drawer(placement) {
+      Elm.Drawer({
+        height: '200px', placement, width: '300px', html: " <div id='Drawerall' class=" + 'elmbutton' + ">套中套</div>", succeed() {
+          Elm.message({
+            tiem: 2000,
+            message: "我是Drawer的回调"
+          })
+          document.getElementById("Drawerall").onclick = function () {
+            Elm.Drawer({
+              placement,
+              width: '500px',
+              height: '150px'
+            })
+          };
+        }
+      })
+    }
+    function message(type = null, html) {
+      Elm.message({
+        tiem: 2000,
+        type,
+        message: html || type
+      })
+    }
+  </script>
+</body>
+
+</html>
