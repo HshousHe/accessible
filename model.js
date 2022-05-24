@@ -215,7 +215,7 @@ class elm extends elm_basics_class {
             })
         })
 
-        console.log(this.searchassignattr('accessible'), '无障碍')
+        // console.log(this.searchassignattr('accessible'), '无障碍')
 
     }
 } 
